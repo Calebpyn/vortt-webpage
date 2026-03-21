@@ -1,38 +1,56 @@
 'use client'
 
-import { useLang } from '@/lib/LanguageContext'
-import { t } from '@/lib/translations'
+import { useEffect, useRef } from 'react'
+import { useLanguage } from '@/lib/LanguageContext'
 
 export default function Process() {
-  const { lang } = useLang()
-  const tx = t[lang].process
+  const refs = useRef<(HTMLDivElement | null)[]>([])
+  const headerRef = useRef<HTMLDivElement>(null)
+  const { tx } = useLanguage()
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add('visible')
+        })
+      },
+      { threshold: 0.15 }
+    )
+    if (headerRef.current) observer.observe(headerRef.current)
+    refs.current.forEach((el) => el && observer.observe(el))
+    return () => observer.disconnect()
+  }, [])
 
   return (
-    <section id="process" className="bg-[#111111] py-24 md:py-32">
-      <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-white font-black text-2xl md:text-3xl tracking-widest text-center mb-20">
-          {tx.title}
-        </h2>
+    <section id="process" className="py-24 px-6 bg-[#F5F5F5]">
+      <div className="max-w-6xl mx-auto">
+        <div ref={headerRef} className="fade-in mb-16">
+          <p className="text-xs font-medium tracking-[0.2em] uppercase text-[#888] mb-4">
+            {tx.process.eyebrow}
+          </p>
+          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-black">
+            {tx.process.title}
+          </h2>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
-          {tx.steps.map((step, i) => (
-            <div key={step.num} className="flex flex-col items-center text-center">
-              {/* Number circle */}
-              <div className="w-14 h-14 rounded-full border-2 border-acid flex items-center justify-center mb-6">
-                <span className="text-acid font-black text-xl italic">{step.num}</span>
-              </div>
-
-              {/* Connector line (desktop only, not on last) */}
-              {i < tx.steps.length - 1 && (
-                <div className="hidden md:block absolute" />
-              )}
-
-              <h3 className="text-white font-black text-sm tracking-[0.2em] mb-3">
-                {step.name}
-              </h3>
-              <p className="text-white/50 text-sm leading-relaxed max-w-xs">
-                {step.desc}
+        <div className="grid md:grid-cols-3 gap-12 md:gap-8">
+          {tx.process.steps.map((step, i) => (
+            <div
+              key={i}
+              ref={(el) => { refs.current[i] = el }}
+              className="fade-in"
+              style={{ transitionDelay: `${i * 120}ms` }}
+            >
+              <p className="text-xs font-bold tracking-widest uppercase text-[#888] mb-6">
+                {step.title}
               </p>
+              <div className="flex items-start gap-4 mb-5">
+                <span className="text-4xl font-extrabold text-[#E5E5E5] leading-none">
+                  {step.number}
+                </span>
+              </div>
+              <p className="text-sm text-[#555] leading-relaxed">{step.description}</p>
             </div>
           ))}
         </div>

@@ -16,7 +16,7 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-8">
           <a href="#services" className="text-sm text-[#1D1D1F] hover:text-black transition-colors">{tx.nav.services}</a>
           <a href="#process" className="text-sm text-[#1D1D1F] hover:text-black transition-colors">{tx.nav.process}</a>
-          <a href="#pricing" className="text-sm text-[#1D1D1F] hover:text-black transition-colors">{tx.nav.pricing}</a>
+          <a href="#services" className="text-sm text-[#1D1D1F] hover:text-black transition-colors">{tx.nav.pricing}</a>
 
           {/* Language toggle */}
           <div className="flex items-center gap-0 text-xs font-semibold border border-[#E5E5E5] rounded-sm overflow-hidden">
@@ -80,7 +80,7 @@ export default function Navbar() {
           <div className="px-6 py-4 flex flex-col gap-4">
             <a href="#services" className="text-sm text-[#1D1D1F]" onClick={() => setMenuOpen(false)}>{tx.nav.services}</a>
             <a href="#process" className="text-sm text-[#1D1D1F]" onClick={() => setMenuOpen(false)}>{tx.nav.process}</a>
-            <a href="#pricing" className="text-sm text-[#1D1D1F]" onClick={() => setMenuOpen(false)}>{tx.nav.pricing}</a>
+            <a href="#services" className="text-sm text-[#1D1D1F]" onClick={() => setMenuOpen(false)}>{tx.nav.pricing}</a>
             <a
               href="#contact"
               className="bg-black text-white text-sm font-medium px-5 py-2.5 text-center rounded-sm"

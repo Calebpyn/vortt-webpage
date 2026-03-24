@@ -31,7 +31,9 @@ export default function CTA() {
           {tx.cta.sub}
         </p>
         <a
-          href="mailto:hello@blnk.ai"
+          href="https://wa.me/12762593245"
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-block bg-black text-white text-sm font-semibold px-10 py-4 tracking-widest uppercase hover:bg-[#1D1D1F] transition-colors"
         >
           {tx.cta.button}
